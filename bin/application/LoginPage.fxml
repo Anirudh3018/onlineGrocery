@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff26" height="468.0" layoutX="133.0" layoutY="111.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="310.0" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="111.0" />
+      <TextField fx:id="email" layoutX="160.0" layoutY="199.0" prefHeight="40.0" prefWidth="255.0" promptText="Email">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <PasswordField fx:id="password" layoutX="160.0" layoutY="284.0" prefHeight="46.0" prefWidth="255.0" promptText="Password">
+         <font>
+            <Font size="16.0" />
+         </font></PasswordField>
+      <Label fx:id="l1" layoutX="161.0" layoutY="182.0" prefHeight="17.0" prefWidth="44.0" text="Email" />
+      <Label fx:id="l2" layoutX="160.0" layoutY="268.0" prefHeight="17.0" prefWidth="68.0" text="Password" />
+      <Label layoutX="159.0" layoutY="123.0" prefHeight="40.0" prefWidth="233.0" text="User Login">
+         <font>
+            <Font name="Century Gothic" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="login" defaultButton="true" layoutX="173.0" layoutY="421.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="102.0" style="-fx-background-color: #376ca1;" text="LOGIN" textFill="#030100">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="signup" defaultButton="true" layoutX="288.0" layoutY="421.0" mnemonicParsing="false" onAction="#signup" prefHeight="40.0" prefWidth="102.0" style="-fx-background-color: #376ca1;" text="SIGNUP" textFill="#030100">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>
