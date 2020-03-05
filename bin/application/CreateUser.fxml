@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="715.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="715.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateUser">
    <children>
       <Label layoutX="58.0" layoutY="108.0" prefHeight="15.0" prefWidth="90.0" text="First Name" />
-      <Label layoutX="52.0" layoutY="192.0" prefHeight="7.0" prefWidth="53.0" text="Email" />
-      <Label layoutX="52.0" layoutY="274.0" prefHeight="25.0" prefWidth="102.0" text="Password" />
+      <Label layoutX="56.0" layoutY="262.0" prefHeight="7.0" prefWidth="53.0" text="Email" />
+      <Label layoutX="56.0" layoutY="344.0" prefHeight="25.0" prefWidth="102.0" text="Password" />
       <Label layoutX="50.0" layoutY="44.0" prefHeight="45.0" prefWidth="342.0" text="Create your Account" textAlignment="CENTER">
          <font>
             <Font name="Century Gothic" size="24.0" />
@@ -29,44 +28,50 @@
          </font>
       </TextField>
       <Label layoutX="288.0" layoutY="108.0" prefHeight="15.0" prefWidth="90.0" text="Last Name" />
-      <TextField fx:id="email" layoutX="50.0" layoutY="209.0" prefHeight="45.0" prefWidth="445.0" promptText="Email">
+      <TextField fx:id="email" layoutX="54.0" layoutY="279.0" prefHeight="45.0" prefWidth="445.0" promptText="Email">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="password" layoutX="50.0" layoutY="299.0" prefHeight="39.0" prefWidth="445.0" promptText="Enter password">
+      <PasswordField fx:id="password" layoutX="54.0" layoutY="369.0" prefHeight="39.0" prefWidth="445.0" promptText="Enter password">
          <font>
             <Font size="16.0" />
          </font>
       </PasswordField>
-      <Label layoutX="54.0" layoutY="358.0" prefHeight="25.0" prefWidth="102.0" text="FlatNo." />
-      <Label layoutX="282.0" layoutY="358.0" prefHeight="25.0" prefWidth="102.0" text="Street" />
-      <TextField fx:id="flatno" layoutX="50.0" layoutY="383.0" prefHeight="39.0" prefWidth="202.0" promptText="Flat Number">
+      <Label layoutX="58.0" layoutY="428.0" prefHeight="25.0" prefWidth="102.0" text="FlatNo." />
+      <Label layoutX="286.0" layoutY="428.0" prefHeight="25.0" prefWidth="102.0" text="Street" />
+      <TextField fx:id="flatno" layoutX="54.0" layoutY="453.0" prefHeight="39.0" prefWidth="202.0" promptText="Flat Number">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="street" layoutX="274.0" layoutY="383.0" prefHeight="39.0" prefWidth="208.0" promptText="Street">
+      <TextField fx:id="street" layoutX="278.0" layoutY="453.0" prefHeight="39.0" prefWidth="208.0" promptText="Street">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="city" layoutX="274.0" layoutY="472.0" prefHeight="39.0" prefWidth="208.0" promptText="City">
+      <TextField fx:id="city" layoutX="278.0" layoutY="542.0" prefHeight="39.0" prefWidth="208.0" promptText="City">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="locality" layoutX="50.0" layoutY="472.0" prefHeight="39.0" prefWidth="202.0" promptText="Locality">
+      <TextField fx:id="locality" layoutX="54.0" layoutY="542.0" prefHeight="39.0" prefWidth="202.0" promptText="Locality">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Label layoutX="274.0" layoutY="447.0" prefHeight="25.0" prefWidth="102.0" text="City" />
-      <Label layoutX="54.0" layoutY="447.0" prefHeight="25.0" prefWidth="102.0" text="Locality" />
-      <Button fx:id="create" defaultButton="true" layoutX="157.0" layoutY="580.0" mnemonicParsing="false" onAction="#createaccount" prefHeight="55.0" prefWidth="208.0" style="-fx-background-color: #376ca1;" text="CREATE ACCOUNT" textFill="#030100">
+      <Label layoutX="278.0" layoutY="517.0" prefHeight="25.0" prefWidth="102.0" text="City" />
+      <Label layoutX="58.0" layoutY="517.0" prefHeight="25.0" prefWidth="102.0" text="Locality" />
+      <Button fx:id="create" defaultButton="true" layoutX="160.0" layoutY="617.0" mnemonicParsing="false" onAction="#createaccount" prefHeight="55.0" prefWidth="208.0" style="-fx-background-color: #376ca1;" text="CREATE ACCOUNT" textFill="#030100">
          <font>
             <Font name="Times New Roman" size="16.0" />
          </font>
       </Button>
+      <Label layoutX="58.0" layoutY="182.0" prefHeight="17.0" prefWidth="90.0" text="Mobile Number" />
+      <TextField fx:id="mobileno" layoutX="54.0" layoutY="199.0" prefHeight="45.0" prefWidth="445.0" promptText="Mobile Number">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
