@@ -37,7 +37,7 @@ public class LoginPageController {
     @FXML
     void login() {
     	try {	
-	    	AnchorPane root=(AnchorPane)FXMLLoader.load(getClass().getResource("CreateUser.fxml"));
+	    	AnchorPane root=(AnchorPane)FXMLLoader.load(getClass().getResource("Categories.fxml"));
 			Stage stg=new Stage();
 			Scene scene=new Scene(root,550,710);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
