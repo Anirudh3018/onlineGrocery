@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -14,12 +13,7 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <ListView fx:id="itemsList" layoutX="19.0" layoutY="108.0" prefHeight="357.0" prefWidth="500.0" />
-      <MenuButton fx:id="categoryDropDown" layoutX="201.0" layoutY="64.0" mnemonicParsing="false" text="CATEGORIES">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
+      <ListView fx:id="itemsList" layoutX="19.0" layoutY="108.0" prefHeight="357.0" prefWidth="515.0" />
+      <ComboBox fx:id="categoryDropDown" layoutX="130.0" layoutY="66.0" onAction="#fetchFilteredItems" prefHeight="32.0" prefWidth="292.0" promptText="PICK CATEGORY" style="-fx-background-color: add8e6;" />
    </children>
 </AnchorPane>
