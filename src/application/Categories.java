@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public class Categories extends ListView<String> implements Initializable {
@@ -45,14 +48,26 @@ public class Categories extends ListView<String> implements Initializable {
  static class Cell extends ListCell<String>{
 	 HBox hbox = new HBox(300);
 	 HBox hbox1 = new HBox(20);
-	 Button add = new Button("ADD");
-	 Button decrease = new Button("DECREMENT");
-	 Button delete = new Button("DELETE");
+	 Button add = new Button("+");
+	 Button decrease = new Button("-");
+	 Button delete = new Button("");
 	 Pane pane = new Pane();
 	 Label label = new Label();
 	 public Cell() {
 		super();
-		 label.setMinWidth(100);
+		 label.setMinWidth(300);
+		 add.setShape(new Circle(1.5));
+		 
+		 decrease.setShape(new Circle(1.5));
+		 delete.setShape(new Circle(1.5));
+		 Image image = new Image(getClass().getResourceAsStream("delete.png"));
+			ImageView imageView = new ImageView(image);
+
+			imageView.setFitWidth(20);
+
+			imageView.setFitHeight(20);
+		 delete.setGraphic(imageView);
+		 
 		 hbox1.getChildren().addAll(add,decrease,delete);
 		 hbox.getChildren().addAll(label,hbox1);
 		 hbox.setHgrow(pane, Priority.ALWAYS);
@@ -93,7 +108,7 @@ public class Categories extends ListView<String> implements Initializable {
 		        		rsub.close();
 		        		
 		        		String SQL="declare  \r\n" + 
-		        				"Id number(1):="+Integer.parseInt(itemId)+";\r\n" + 
+		        				"Id number(5):="+Integer.parseInt(itemId)+";\r\n" + 
 		        				"flag number(1);\r\n" + 
 		        				"CURSOR c1 is select item_id from cart;\r\n" + 
 		        				"begin \r\n" + 

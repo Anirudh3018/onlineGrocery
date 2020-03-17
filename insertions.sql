@@ -34,7 +34,7 @@ insert into categories values(2,'Coffee,Tea & Health Drinks');
 insert into categories values(3,'Rice,Flour & Pulses');
 insert into categories values(4,'Dairy');
 insert into categories values(5,'Dried Fruits & Nuts');
-insert into categories values(6,'Oils,Spices and Masalas');
+insert into categories values(6,'Oils,Spices & Masalas');
 insert into categories values(7,'Biscuits & Cookies');
 insert into categories values(8,'Pasta & Noodles');
 insert into categories values(9,'Fried Snacks');
