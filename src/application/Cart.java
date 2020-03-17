@@ -118,7 +118,30 @@ public class Cart extends ListView<String> implements Initializable {
  itemsList.setItems(listView);
  itemsList.setCellFactory(param->new Cell());
 }
-
+void fetchPrice()
+{
+	String price="";
+	try {  
+		 System.out.print("In fetch");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
+			String SQL = "select sum(item_qty*item_price) as tot_price from cart";
+			PreparedStatement ps=con.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();	
+			if(rs.next())
+			{
+				price=rs.getString("tot_price");
+				price1.setText(price);
+			}
+			System.out.println();
+			System.out.println(price);
+			ps.close();
+			rs.close();
+		}
+		catch(Exception e){
+			System.out.println("No items fetched");
+		}
+}
 
 @FXML 
  void fetchItems() {
