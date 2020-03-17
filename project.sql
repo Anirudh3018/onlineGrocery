@@ -40,15 +40,6 @@ create table cart(
 	item_price number(4) not null,
 	primary key(cart_id,item_id)
 ); 
-
-create table added_to(
-	cart_id number(6) not null,
-	item_id number(6) not null,
-	primary key(cart_id,item_id),
-	foreign key(cart_id) references cart(cart_id) on delete cascade ,
-	foreign key(item_id) references items(item_id) on delete cascade
-);
-
 create table order_history(
 	order_id number(6) primary key,
 	item_id number(6) ,
