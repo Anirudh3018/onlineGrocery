@@ -115,6 +115,7 @@ public class Cart extends ListView<String> implements Initializable {
  }
  public void initialize(URL arg0,ResourceBundle arg1) {
  fetchItems();
+ fetchPrice();
  itemsList.setItems(listView);
  itemsList.setCellFactory(param->new Cell());
 }
