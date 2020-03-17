@@ -13,17 +13,18 @@ create table customer(
 
 create table categories(
 	category_id number(6) primary key,
-	category_name varchar(15) not null
+	category_name varchar(30) not null
 );
 
 create table items(
 	category_id number(6),
-	item_id number(6) primary key,
-	item_name varchar(20) not null,
-	brand varchar(15),
+	item_id varchar(6) primary key,
+	item_name varchar(40) not null,
+	brand varchar(25),
 	price number(4) not null,
-	foreign key(category_id) references categories(category_id) on delete cascade 
+	foreign key(category_id) references categories(category_id)
 );
+
 create table stock(
 	item_id number(6) primary key,
 	item_qty number(3) not null,
@@ -35,7 +36,7 @@ create table stock(
 create table cart(
 	cart_id number(6) ,
 	item_id number(6) ,
-	item_name varchar(20) not null,
+	item_name varchar(40) not null,
 	item_qty number(2) not null,
 	item_price number(4) not null,
 	primary key(cart_id,item_id)
@@ -43,7 +44,7 @@ create table cart(
 create table order_history(
 	order_id number(6) primary key,
 	item_id number(6) ,
-	item_name varchar(20) not null,
+	item_name varchar(40) not null,
 	item_qty number(2) not null,
 	item_price number(4) not null,
 	cust_id number(6) not null,
