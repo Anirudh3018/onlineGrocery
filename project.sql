@@ -18,7 +18,7 @@ create table categories(
 
 create table items(
 	category_id number(6),
-	item_id varchar(6) primary key,
+	item_id number(6) primary key,
 	item_name varchar(40) not null,
 	brand varchar(25),
 	price number(4) not null,
