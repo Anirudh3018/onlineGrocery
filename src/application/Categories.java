@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 import javafx.scene.layout.HBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -31,30 +33,29 @@ public class Categories extends ListView<String> implements Initializable {
    
  ObservableList<String> listView = FXCollections.observableArrayList();
  ObservableList<String> categories = FXCollections.observableArrayList();
+ String item_name;
+ String brand;
  String price;
+ static int cart_id = 0;
+
 
  @FXML
  private ComboBox<String> categoryDropDown;
+ 
  static class Cell extends ListCell<String>{
 	 HBox hbox = new HBox(300);
 	 HBox hbox1 = new HBox(20);
 	 Button add = new Button("ADD");
+	 Button decrease = new Button("DECREMENT");
 	 Button delete = new Button("DELETE");
 	 Pane pane = new Pane();
 	 Label label = new Label();
-	 Label label1 = new Label();
-	 
-	 
-	 public Cell(String price) {
-		 super();
-		 
+	 public Cell() {
+		super();
 		 label.setMinWidth(100);
-		 hbox1.getChildren().addAll(add,delete);
-		 hbox.getChildren().addAll(label,label1,hbox1);
+		 hbox1.getChildren().addAll(add,decrease,delete);
+		 hbox.getChildren().addAll(label,hbox1);
 		 hbox.setHgrow(pane, Priority.ALWAYS);
-		 
-		
-		 
 	 }
 	 public void updateItem(String name,boolean empty) {
 		 super.updateItem(name,empty);
@@ -62,9 +63,132 @@ public class Categories extends ListView<String> implements Initializable {
 		 setGraphic(null);
 		 if(name!=null&&!empty) {
 			 label.setText(name);
-			 
 			 setGraphic(hbox);
-			 }
+			}
+		 add.setOnAction(new EventHandler<ActionEvent>() { //Function to add item to cart
+		     @Override
+		     public void handle(ActionEvent event) {
+		    	 String item =label.getText();
+		    	 String[] parsedItem =item.split("  ");
+//		         System.out.println(parsedItem[0]); //brand
+//		         System.out.println(parsedItem[1]); //itemName
+//		         System.out.println(parsedItem[2]); //price
+		    	 
+		         int qty = 1;
+		         String itemId="";
+		         String actualPrice="";
+		         
+		         try {
+		        		Class.forName("oracle.jdbc.driver.OracleDriver");
+		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+		        		String SQLsub = "select item_id,price from items where item_name='" + parsedItem[1] + "'";
+		        		PreparedStatement psub=con.prepareStatement(SQLsub);
+		        		ResultSet rsub = psub.executeQuery();
+		        		System.out.print("RS");
+		        		if(rsub.next()) {
+		        			 itemId= rsub.getString("item_id");
+		        			  actualPrice = rsub.getString("price"); 
+		        		}
+		        		psub.close();
+		        		rsub.close();
+		        		
+		        		String SQL="declare  \r\n" + 
+		        				"Id number(1):="+Integer.parseInt(itemId)+";\r\n" + 
+		        				"flag number(1);\r\n" + 
+		        				"CURSOR c1 is select item_id from cart;\r\n" + 
+		        				"begin \r\n" + 
+		        				"flag:=0;\r\n" + 
+		        				"for itemIds in c1\r\n" + 
+		        				"loop \r\n" + 
+		        				"if itemIds.item_id =Id then\r\n" + 
+		        				"flag := 1;\r\n" + 
+		        				"EXIT;\r\n" + 
+		        				"else \r\n" + 
+		        				"flag := 0;\r\n" + 
+		        				"end if;\r\n" + 
+		        				"end loop;\r\n" + 
+		        				"if flag =1 then\r\n" + 
+		        				"update cart set item_qty = item_qty+1 where item_id =Id;\r\n" + 
+		        				"elsif flag =0 then\r\n" + 
+		        				"insert into cart values("+cart_id+","+Integer.parseInt(itemId)+",'"+parsedItem[1]+"',"+qty+","+Integer.parseInt(actualPrice)+");\r\n" + 
+		        				"end if;\r\n" + 
+		        				"end; ";
+		        		PreparedStatement ps=con.prepareStatement(SQL);
+		        		ResultSet rs = ps.executeQuery();
+		        		System.out.println("Added to cart");
+		        		ps.close();
+		        		rs.close();
+		        	}
+		        	catch(Exception e){
+		        		System.out.println(e);
+		        	}
+		     }
+		 });
+		 
+		 decrease.setOnAction(new EventHandler<ActionEvent>() { //Function to add item to cart
+		     @Override
+		     public void handle(ActionEvent event) {
+		    	 
+		    	 String item =label.getText();
+		    	 String[] parsedItem =item.split("  ");
+		    	 String itemId=""; 
+		    	   try {
+		        		Class.forName("oracle.jdbc.driver.OracleDriver");
+		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+		        		String SQLsub = "select item_id from items where item_name='" + parsedItem[1] + "'";
+		        		PreparedStatement psub=con.prepareStatement(SQLsub);
+		        		ResultSet rsub = psub.executeQuery();
+		        		if(rsub.next()) {
+		        			 itemId= rsub.getString("item_id");
+		        		}
+		        		
+		        		String SQL = "update cart set item_qty = item_qty-1 where item_id ="+Integer.parseInt(itemId);
+		        		PreparedStatement ps=con.prepareStatement(SQL);
+		        		ResultSet rs = ps.executeQuery();
+		        		System.out.println("Decreased to cart");
+		        		ps.close();
+		        		rs.close();
+		        		
+		     }
+		    	   catch(Exception e) {
+		    		   System.out.print("Couldnt decrement from cart");
+		    		   }
+		    	   }
+		    	   
+});
+		 delete.setOnAction(new EventHandler<ActionEvent>() { //Function to add item to cart
+		     @Override
+		     public void handle(ActionEvent event) {
+		    	 
+		    	 String item =label.getText();
+		    	 String[] parsedItem =item.split("  ");
+		    	 String itemId=""; 
+		    	   try {
+		        		Class.forName("oracle.jdbc.driver.OracleDriver");
+		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+		        		String SQLsub = "select item_id from items where item_name='" + parsedItem[1] + "'";
+		        		PreparedStatement psub=con.prepareStatement(SQLsub);
+		        		ResultSet rsub = psub.executeQuery();
+		        		if(rsub.next()) {
+		        			 itemId= rsub.getString("item_id");
+		        		}
+		        		
+		        		String SQL = "delete from cart where item_id ="+Integer.parseInt(itemId);
+		        		PreparedStatement ps=con.prepareStatement(SQL);
+		        		ResultSet rs = ps.executeQuery();
+		        		System.out.println("Deleted from cart");
+		        		ps.close();
+		        		rs.close();
+		        		
+		     }
+		    	   catch(Exception e) {
+		    		   System.out.print("Couldnt delete from cart");
+		    		   }
+		    	   }
+		    	   
+});
+		 
+		 
 	 }
 	 
 	 
@@ -74,12 +198,11 @@ public class Categories extends ListView<String> implements Initializable {
  fetchCategories();
  fetchFilteredItems();
  categoryDropDown.getItems().addAll(categories); 
- itemsList.setCellFactory(param->new Cell(price));
- 
+ itemsList.setCellFactory(param->new Cell());
 }
+
  @FXML
  void fetchFilteredItems() {
-	System.out.print(categoryDropDown.getValue());
    fetchItems(categoryDropDown.getSelectionModel().getSelectedIndex()+1);
  }
  
@@ -93,7 +216,6 @@ try {
 	ResultSet rs = ps.executeQuery();
 	while(rs.next()) {
 		categories.add(rs.getString("category_name"));
-		
 	
 	}
 	ps.close();
@@ -105,6 +227,8 @@ catch(Exception e){
 
  }
  
+ 
+ 
  void fetchItems(int index) {
 	 try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -114,12 +238,9 @@ catch(Exception e){
 			ResultSet rs = ps.executeQuery();
 			listView.clear();
 			while(rs.next()) {
+				listView.add(rs.getString("brand")+"  "+rs.getString("item_name")+"  Rs."+rs.getString("price"));
 				
-				listView.add(rs.getString("item_name"));
-				price = " ";
-				price = rs.getString("price");
 			}
-			System.out.print(listView+price);
 			ps.close();
 			rs.close();
 		}

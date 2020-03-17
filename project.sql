@@ -33,8 +33,8 @@ create table stock(
 );
 
 create table cart(
-	cart_id number(6) unique,
-	item_id number(6) unique,
+	cart_id number(6) ,
+	item_id number(6) ,
 	item_name varchar(20) not null,
 	item_qty number(2) not null,
 	item_price number(4) not null,

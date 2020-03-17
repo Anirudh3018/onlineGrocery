@@ -1,4 +1,9 @@
 package application;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -39,25 +44,23 @@ public class LoginPageController {
     	int flag = 0;
 		String username = email.getText();
 		String pwd1 = password.getText();
+		System.out.println(username);
+		System.out.print(pwd1);
 		if (username.length() == 0 || pwd1.length() == 0) {
 			invalid.setText("Please enter all values");
 			return;
 		}
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "dbs_project",
-					"Ankita23");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "nidhi",
+					"ilmm2526");
 			String SQL = "select password from customer where email='" + username + "'";
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ResultSet rs = ps.executeQuery();
-			/*if (!(rs.next())) // username doesnt exist
-			{
-				invalid.setText("Username doesn't exist");
-				flag = -1; // otherwise gets overwritten by the 'invalid user....' message
-			} */
-				if(rs.next())	//username exists
+				if(rs.next())	
 			{
 				String pwd2=rs.getString("password");
+				System.out.print(pwd2);
 				if (pwd1.equals(pwd2)) {
 					flag = 1;
 				} 
