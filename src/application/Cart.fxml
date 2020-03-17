@@ -15,5 +15,7 @@
       </Label>
       <ListView fx:id="itemsList" layoutX="19.0" layoutY="108.0" prefHeight="357.0" prefWidth="515.0" />
       <Button fx:id="backButton" layoutX="123.0" layoutY="552.0" mnemonicParsing="false" onAction="#back" prefHeight="47.0" prefWidth="118.0" text="BACK BUTTON" />
+       <Label fx:id="price1" layoutX="415.0" layoutY="501.0" prefHeight="31.0" prefWidth="118.0" />
+      <Label fx:id="total" layoutX="311.0" layoutY="501.0" prefHeight="31.0" prefWidth="79.0" text="TOTAL:" />
    </children>
 </AnchorPane>
