@@ -52,6 +52,7 @@ public class Cart extends ListView<String> implements Initializable {
  String brand;
  String price;
  static int cart_id = 0;
+ static int orderId=0;
 
 
  @FXML
@@ -272,7 +273,34 @@ void modify(ActionEvent event) {
 
 @FXML
 void placeOrder(ActionEvent event) {
-
+	 try { 
+		 LoginPageController emailObj = new LoginPageController(); 
+		 System.out.print(emailObj.emailId); //data fetched from login when login happens
+		 System.out.print("In fetch");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+			String SQL = "declare\r\n" + 
+					"CURSOR c2 is select cust_id,items.item_id,cart.item_name,cart.item_price,cart.item_qty from items,cart,customer where items.item_name=cart.item_name and email='jessSingh@gmail.com'; \r\n" +//change email to email='"+emailObj.emailId+"' 
+					"order_id number(6):=0;\r\n" + 
+					"cust_id number(6):=1;\r\n" + 
+					"begin\r\n" + 
+					"for item in c2\r\n" + 
+					"loop\r\n" + 
+					"insert into order_history values("+orderId+",item.item_id,'item.item_name',item.item_qty,item.item_price,item.cust_id); \r\n" + 
+					"end loop;\r\n" + 
+					"delete from cart;\r\n"+    //delete from cart after sending order to order_history
+					"end;";
+			PreparedStatement ps=con.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();
+			//TODO also direct to orderSummary page;
+			System.out.println("Order placed");
+			orderId = orderId+1;
+			ps.close();
+			rs.close();
+		}
+		catch(Exception e){
+			System.out.println("Order Not placed");
+		}
 }
 
  

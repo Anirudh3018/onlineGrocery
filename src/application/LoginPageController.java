@@ -37,12 +37,15 @@ public class LoginPageController {
     
     @FXML
     private Label invalid;
+    
+    public String emailId;
 	
     // Event Listener on Button[#login].onAction	
     @FXML
     void login() {
     	int flag = 0;
 		String username = email.getText();
+		emailId = email.getText();
 		String pwd1 = password.getText();
 		System.out.println(username);
 		System.out.print(pwd1);

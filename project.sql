@@ -43,7 +43,7 @@ create table cart(
 ); 
 create table order_history(
 	order_id number(6) primary key,
-	item_id number(6) ,
+	item_id number(6) not null,
 	item_name varchar(40) not null,
 	item_qty number(2) not null,
 	item_price number(4) not null,

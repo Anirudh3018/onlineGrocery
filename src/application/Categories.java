@@ -6,15 +6,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -27,7 +30,9 @@ import javafx.scene.layout.*;
 
 public class Categories extends ListView<String> implements Initializable {
 	
-	
+
+    @FXML
+    private AnchorPane Cart;
     @FXML
     private Label heading;
 
@@ -261,6 +266,21 @@ catch(Exception e){
 		}
 		catch(Exception e){
 			System.out.println("Not Category fetched");
+		}
+ }
+ 
+ @FXML
+ void goToCart(ActionEvent event) {
+	 try {	
+	    	AnchorPane root=(AnchorPane)FXMLLoader.load(getClass().getResource("Cart.fxml"));
+			Stage stg=new Stage();
+			Scene scene=new Scene(root,550,710);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stg.setScene(scene);
+			stg.show();
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
  }
  
