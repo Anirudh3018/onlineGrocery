@@ -54,6 +54,9 @@ public class Categories extends ListView<String> implements Initializable {
 	 HBox hbox = new HBox(300);
 	 HBox hbox1 = new HBox(20);
 	 Button add = new Button("+");
+	 
+	 Button qty=new Button("0");
+	 
 	 Button decrease = new Button("-");
 	 Button delete = new Button("");
 	 Pane pane = new Pane();
@@ -94,6 +97,29 @@ public class Categories extends ListView<String> implements Initializable {
 //		         System.out.println(parsedItem[1]); //itemName
 //		         System.out.println(parsedItem[2]); //price
 		    	 
+			     
+			 //set text for qty button    
+			 Connection con1;
+					try {
+						con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+								"dbs_project","Ankita23");
+					
+					String SQL1 = "select * from cart where item_name='"+parsedItem[1]+"'";
+					PreparedStatement ps1 = con1.prepareStatement(SQL1);
+					ResultSet rs1 = ps1.executeQuery();
+					if (rs1.next())
+					{
+					int q=Integer.parseInt(rs1.getString("item_qty"))+1;
+					qty.setText(q+"");
+					}
+					else qty.setText("1");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					    
+			     
+			     
 		         int qty = 1;
 		         String itemId="";
 		         String actualPrice="";
@@ -152,6 +178,29 @@ public class Categories extends ListView<String> implements Initializable {
 		    	 String item =label.getText();
 		    	 String[] parsedItem =item.split("  ");
 		    	 String itemId=""; 
+			 
+			 //set text for qty button  
+			 Connection con1;
+					try {
+						con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+								"dbs_project","Ankita23");
+					
+					String SQL1 = "select * from cart where item_name='"+parsedItem[0]+"'";
+					PreparedStatement ps1 = con1.prepareStatement(SQL1);
+					ResultSet rs1 = ps1.executeQuery();
+					if (rs1.next())
+					{
+					int q=Integer.parseInt(rs1.getString("item_qty"))-1;
+					qty.setText(q+"");
+					}
+					else qty.setText("1");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					    
+			     
+			     
 		    	   try {
 		        		Class.forName("oracle.jdbc.driver.OracleDriver");
 		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
@@ -165,6 +214,24 @@ public class Categories extends ListView<String> implements Initializable {
 		        		String SQL = "update cart set item_qty = item_qty-1 where item_id ="+Integer.parseInt(itemId);
 		        		PreparedStatement ps=con.prepareStatement(SQL);
 		        		ResultSet rs = ps.executeQuery();
+				   
+				   //if qty=0,delete it
+						
+						SQL="select * from cart where item_id="+Integer.parseInt(itemId);
+						ps = con.prepareStatement(SQL);
+						rs = ps.executeQuery();					
+												
+						if (rs.next())
+						{
+						System.out.print("qty is "+rs.getString("item_qty")+"\n");
+						if(rs.getInt("item_qty")==0)
+						{
+							SQL = "delete from cart where item_id="+ Integer.parseInt(itemId);
+							ps = con.prepareStatement(SQL);
+							rs = ps.executeQuery();
+						}
+						}
+				   
 		        		System.out.println("Decreased to cart");
 		        		ps.close();
 		        		rs.close();
@@ -182,7 +249,10 @@ public class Categories extends ListView<String> implements Initializable {
 		    	 
 		    	 String item =label.getText();
 		    	 String[] parsedItem =item.split("  ");
-		    	 String itemId=""; 
+		    	 String itemId="";
+			     
+			 qty.setText(0+"");
+					    
 		    	   try {
 		        		Class.forName("oracle.jdbc.driver.OracleDriver");
 		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
