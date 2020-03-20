@@ -293,6 +293,7 @@ void placeOrder(ActionEvent event) {
 			PreparedStatement ps=con.prepareStatement(SQL);
 			ResultSet rs = ps.executeQuery();
 			//TODO also direct to orderSummary page;
+			//TODO add cart subtotal
 			System.out.println("Order placed");
 			orderId = orderId+1;
 			ps.close();
