@@ -15,6 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class LoginPageController {
+	
+	@FXML
+	private AnchorPane rootPane;
 
     @FXML
     private PasswordField password;
@@ -55,8 +58,7 @@ public class LoginPageController {
 		}
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "nidhi",
-					"ilmm2526");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "abc","abc");
 			String SQL = "select password from customer where email='" + username + "'";
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ResultSet rs = ps.executeQuery();
@@ -74,11 +76,7 @@ public class LoginPageController {
 			if (flag == 1) {
 				invalid.setText("");
 				AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Categories.fxml"));
-				Stage stg = new Stage();
-				Scene scene = new Scene(root, 600, 800);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				stg.setScene(scene);
-				stg.show();
+				rootPane.getChildren().setAll(root);
 			} else {
 				invalid.setText("Invalid username/Password");
 			}
@@ -90,20 +88,14 @@ public class LoginPageController {
 
     }
 
-//    @FXML
-//    void 030100() {
-//
-//    }
+
     
     @FXML
     void signup() {
     	try {	
 	    	AnchorPane root=(AnchorPane)FXMLLoader.load(getClass().getResource("CreateUser.fxml"));
-			Stage stg=new Stage();
-			Scene scene=new Scene(root,550,710);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stg.setScene(scene);
-			stg.show();
+
+	    	rootPane.getChildren().setAll(root);
     	}
     	catch(Exception e){
     		e.printStackTrace();
@@ -111,9 +103,5 @@ public class LoginPageController {
 
     }
 
-//    @FXML
-//    void 030100(ActionEvent event) {
-//
-//    }
 
 }

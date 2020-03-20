@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.scene.shape.Circle;
@@ -30,14 +31,17 @@ import javafx.scene.layout.*;
 
 public class Categories extends ListView<String> implements Initializable {
 	
+	@FXML
+	private AnchorPane rootPane;	
 
-    @FXML
-    private AnchorPane Cart;
     @FXML
     private Label heading;
 
     @FXML
     private ListView<String> itemsList;
+    
+    @FXML
+    private Label fetchPrice;
    
  ObservableList<String> listView = FXCollections.observableArrayList();
  ObservableList<String> categories = FXCollections.observableArrayList();
@@ -101,8 +105,7 @@ public class Categories extends ListView<String> implements Initializable {
 			 //set text for qty button    
 			 Connection con1;
 					try {
-						con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-								"dbs_project","Ankita23");
+						con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 					
 					String SQL1 = "select * from cart where item_name='"+parsedItem[1]+"'";
 					PreparedStatement ps1 = con1.prepareStatement(SQL1);
@@ -126,7 +129,7 @@ public class Categories extends ListView<String> implements Initializable {
 		         
 		         try {
 		        		Class.forName("oracle.jdbc.driver.OracleDriver");
-		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 		        		String SQLsub = "select item_id,price from items where item_name='" + parsedItem[1] + "'";
 		        		PreparedStatement psub=con.prepareStatement(SQLsub);
 		        		ResultSet rsub = psub.executeQuery();
@@ -182,8 +185,7 @@ public class Categories extends ListView<String> implements Initializable {
 			 //set text for qty button  
 			 Connection con1;
 					try {
-						con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-								"dbs_project","Ankita23");
+						con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 					
 					String SQL1 = "select * from cart where item_name='"+parsedItem[0]+"'";
 					PreparedStatement ps1 = con1.prepareStatement(SQL1);
@@ -255,7 +257,7 @@ public class Categories extends ListView<String> implements Initializable {
 					    
 		    	   try {
 		        		Class.forName("oracle.jdbc.driver.OracleDriver");
-		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+		        		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 		        		String SQLsub = "select item_id from items where item_name='" + parsedItem[1] + "'";
 		        		PreparedStatement psub=con.prepareStatement(SQLsub);
 		        		ResultSet rsub = psub.executeQuery();
@@ -300,7 +302,7 @@ public class Categories extends ListView<String> implements Initializable {
  void fetchCategories() {
 try {
 	Class.forName("oracle.jdbc.driver.OracleDriver");
-	Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+	Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 	String SQL = " select category_name from categories";
 	PreparedStatement ps=con.prepareStatement(SQL);
 	ResultSet rs = ps.executeQuery();
@@ -322,7 +324,7 @@ catch(Exception e){
  void fetchItems(int index) {
 	 try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 			String SQL = "select item_name,brand,price from items where category_id ="+index;
 			PreparedStatement ps=con.prepareStatement(SQL);
 			ResultSet rs = ps.executeQuery();
@@ -339,15 +341,37 @@ catch(Exception e){
 		}
  }
  
+void fetchPrice()
+{
+	String price="";
+	try {  
+		 System.out.print("In fetch");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
+			String SQL = "select sum(item_qty*item_price) as tot_price from cart";
+			PreparedStatement ps=con.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();	
+			if(rs.next())
+			{
+				price=rs.getString("tot_price");
+				fetchPrice.setText(price);
+			}
+			System.out.println();
+			System.out.println(price);
+			ps.close();
+			rs.close();
+		}
+		catch(Exception e){
+			System.out.println("No items fetched");
+		}
+}
+
+ 
  @FXML
  void goToCart(ActionEvent event) {
 	 try {	
 	    	AnchorPane root=(AnchorPane)FXMLLoader.load(getClass().getResource("Cart.fxml"));
-			Stage stg=new Stage();
-			Scene scene=new Scene(root,550,710);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stg.setScene(scene);
-			stg.show();
+	    	rootPane.getChildren().setAll(root);
 		}
 		catch(Exception e){
 			e.printStackTrace();

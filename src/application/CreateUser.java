@@ -4,12 +4,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class CreateUser {
 	int cust_id = 0;
+	
+	@FXML
+	private AnchorPane rootPane;
 
     @FXML
     private TextField firstname;
@@ -47,7 +52,7 @@ public class CreateUser {
     	try{
     		cust_id = cust_id+1;
     		Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","nidhi","ilmm2526");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","abc","abc");
 			String _firstname = firstname.getText();
 			String _lastname = lastname.getText();
 			String _mobileno = mobileno.getText();
@@ -68,10 +73,19 @@ public class CreateUser {
     		e.printStackTrace();
     	}
     }
+    @FXML
+    void loginPage()
+    {
+    	try {	
+	    	AnchorPane root=(AnchorPane)FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
 
-//    @FXML
-//    void 030100(){
-//
-//    }
+	    	rootPane.getChildren().setAll(root);
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+		}
+    }
+
+
 
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="715.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateUser">
+<AnchorPane fx:id="rootPane" prefHeight="715.0" prefWidth="552.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.CreateUser">
    <children>
       <Label layoutX="58.0" layoutY="108.0" prefHeight="15.0" prefWidth="90.0" text="First Name" />
       <Label layoutX="56.0" layoutY="262.0" prefHeight="7.0" prefWidth="53.0" text="Email" />
@@ -62,7 +62,7 @@
       </TextField>
       <Label layoutX="278.0" layoutY="517.0" prefHeight="25.0" prefWidth="102.0" text="City" />
       <Label layoutX="58.0" layoutY="517.0" prefHeight="25.0" prefWidth="102.0" text="Locality" />
-      <Button fx:id="create" defaultButton="true" layoutX="160.0" layoutY="617.0" mnemonicParsing="false" onAction="#createaccount" prefHeight="55.0" prefWidth="208.0" style="-fx-background-color: #376ca1;" text="CREATE ACCOUNT" textFill="#030100">
+      <Button fx:id="create" defaultButton="true" layoutX="56.0" layoutY="619.0" mnemonicParsing="false" onAction="#createaccount" prefHeight="55.0" prefWidth="208.0" style="-fx-background-color: #376ca1;" text="CREATE ACCOUNT" textFill="#030100">
          <font>
             <Font name="Times New Roman" size="16.0" />
          </font>
@@ -73,5 +73,10 @@
             <Font size="16.0" />
          </font>
       </TextField>
+      <Button fx:id="backButton" defaultButton="true" layoutX="274.0" layoutY="619.0" mnemonicParsing="false" onAction="#loginPage" prefHeight="55.0" prefWidth="208.0" style="-fx-background-color: #376ca1;" text="LOGIN PAGE" textFill="#030100">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
