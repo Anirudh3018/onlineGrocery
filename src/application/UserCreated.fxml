@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserCreatedController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#aee5eb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="640.0" />
+      <Label layoutX="21.0" layoutY="153.0" prefHeight="70.0" prefWidth="447.0" text="Account Successfully Created!">
+         <font>
+            <Font name="Century Gothic" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="22.0" prefHeight="70.0" prefWidth="447.0" text="Welcome!">
+         <font>
+            <Font name="Century Gothic" size="31.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="485.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bin/application/tickmark.png" />
+         </image>
+      </ImageView>
+      <Hyperlink fx:id="login" layoutX="21.0" layoutY="286.0" onAction="#login" prefHeight="76.0" prefWidth="364.0" text="Click here to continue">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Hyperlink>
+   </children>
+</AnchorPane>
