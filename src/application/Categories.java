@@ -57,11 +57,11 @@ public class Categories extends ListView<String> implements Initializable {
  static class Cell extends ListCell<String>{
 	 HBox hbox = new HBox(300);
 	 HBox hbox1 = new HBox(20);
-	 Button add = new Button("+");
+	 Button add = new Button("");
 	 
 	 Button qty=new Button("0");
 	 
-	 Button decrease = new Button("-");
+	Button decrease = new Button("");
 	 Button delete = new Button("");
 	 Pane pane = new Pane();
 	 Label label = new Label();
@@ -72,15 +72,31 @@ public class Categories extends ListView<String> implements Initializable {
 		 
 		 decrease.setShape(new Circle(1.5));
 		 delete.setShape(new Circle(1.5));
+		 
+		 add.setStyle("-fx-background-color: #ffffff; ");
+			decrease.setStyle("-fx-background-color: #ffffff; ");
+			qty.setStyle("-fx-background-color: #ffffff; ");
+			delete.setStyle("-fx-background-color: #ffffff; ");
+			
 		 Image image = new Image(getClass().getResourceAsStream("delete.png"));
 			ImageView imageView = new ImageView(image);
-
 			imageView.setFitWidth(20);
-
 			imageView.setFitHeight(20);
-		 delete.setGraphic(imageView);
+			delete.setGraphic(imageView);
 		 
-		 hbox1.getChildren().addAll(add,decrease,delete);
+		  image = new Image(getClass().getResourceAsStream("addtocart.png"));				
+			  imageView = new ImageView(image); 
+			  imageView.setFitWidth(20);
+			  imageView.setFitHeight(20); 
+			  add.setGraphic(imageView);  
+			 
+		  image = new Image(getClass().getResourceAsStream("decrease.png"));				
+			  imageView = new ImageView(image); 
+			  imageView.setFitWidth(20);
+			  imageView.setFitHeight(20); 
+			 decrease.setGraphic(imageView);  
+		 
+		 hbox1.getChildren().addAll(decrease,qty,add,delete);
 		 hbox.getChildren().addAll(label,hbox1);
 		 hbox.setHgrow(pane, Priority.ALWAYS);
 	 }
