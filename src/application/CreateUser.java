@@ -62,17 +62,33 @@ public class CreateUser {
 			String _city = city.getText();
 			String _street = street.getText();
 			String _locality = locality.getText();
-			Integer phone =Integer.parseInt(_mobileno);
+			//Integer phone =Integer.parseInt(_mobileno);
+		
+			Long phone1;
+			phone1=(Long)Long.parseLong(_mobileno);
 			String SQL="insert into customer values("+cust_id+",'"+_firstname+"','"+_lastname+"',"+phone+",'"+_email+"','"+_password+"','"+_flatno+"','"+_street+"','"+_locality+"','"+_city+"')";
 			PreparedStatement ps=con.prepareStatement(SQL);
 			ps.executeQuery();
 			System.out.println("USER CREATED");
+			display();
     	}
     	catch(Exception e)
     	{
     		e.printStackTrace();
     	}
     }
+	void display()
+	{
+		
+		try {
+			AnchorPane 	root=(AnchorPane)FXMLLoader.load(getClass().getResource("UserCreated.fxml"));
+			rootPane.getChildren().setAll(root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+	}
     @FXML
     void loginPage()
     {
