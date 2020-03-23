@@ -108,6 +108,27 @@ public class Categories extends ListView<String> implements Initializable {
 			 label.setText(name);
 			 setGraphic(hbox);
 			}
+		 
+		Connection con;
+			try {
+				con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+						"dbs_project","Ankita23");
+			
+			String item = label.getText();
+			String[] parsedItem = item.split("  ");
+		String SQL = "select * from cart where item_name='"+parsedItem[0]+"'";
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		if (rs.next())
+		{
+		int q=Integer.parseInt(rs.getString("item_qty"));
+		qty.setText(q+"");
+		}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		
+		 
 		 add.setOnAction(new EventHandler<ActionEvent>() { //Function to add item to cart
 		     @Override
 		     public void handle(ActionEvent event) {
